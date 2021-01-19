@@ -4,32 +4,21 @@
 
 
 def digits_to_words(input_string):
-    """
-    인풋으로 받는 스트링에서 숫자만 추출하여 영어 단어로 변환하여 단어들이 연결된 스트링을 반환함
-    아래의 요건들을 충족시켜야함
-    * 반환하는 단어들은 영어 소문자여야함
-    * 단어들 사이에는 띄어쓰기 한칸이 있음
-    * 만약 인풋 스트링에서 숫자가 존재하지 않는 다면, 빈 문자열 (empty string)을 반환함
-
-        Parameters:
-            input_string (string): 영어로 된 대문자, 소문자, 띄어쓰기, 문장부호, 숫자로 이루어진 string
-            ex - "Zip Code: 19104"
-
-        Returns:
-            digit_string (string): 위 요건을 충족시킨 숫자만 영어단어로 추출된 string
-            ex - 'one nine one zero four'
-
-        Examples:
-            >>> import text_processing2 as tp2
-            >>> digits_str1 = "Zip Code: 19104"
-            >>> tp2.digits_to_words(digits_str1)
-            'one nine one zero four'
-            >>> digits_str2 = "Pi is 3.1415..."
-            >>> tp2.digits_to_words(digits_str2)
-            'three one four one five'
-    """
-    digit_string = None
-    return digit_string
+    digit_string = ''
+    for char in input_string:
+        if char.isdigit():
+            if(char == '1'): digit_string += 'one '
+            elif(char == '2'): digit_string += 'two '
+            elif(char == '3'): digit_string += 'three '
+            elif(char == '4'): digit_string += 'four '
+            elif(char == '5'): digit_string += 'five '
+            elif(char == '6'): digit_string += 'six '
+            elif(char == '7'): digit_string += 'seven '
+            elif(char == '8'): digit_string += 'eight '
+            elif(char == '9'): digit_string += 'nine '
+            else: digit_string += 'zero '
+    
+    return digit_string.rstrip()
 
 
 """
@@ -64,5 +53,25 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+    if underscore_str.find('_') == -1: return underscore_str
+
+    pre_underscore = False
+    is_first_char = True
+    
+    camelcase_str = ''
+
+    for char in underscore_str:
+        if char == '_': pre_underscore = True
+        elif char.islower() or char.isupper():
+            if is_first_char: 
+                camelcase_str += char.lower()
+                is_first_char = False
+            elif pre_underscore: camelcase_str += char.upper()
+            else: camelcase_str += char.lower()
+            pre_underscore = False
+
+    print(camelcase_str)
+
     return camelcase_str
+
+# to_camel_case('to_camel_case')
